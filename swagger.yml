@@ -33,8 +33,6 @@ info:
 
     Your login will give you access to both instances.
 
-    Testing.
-
     # Authentication
 
     FILL IN AUTHENTICATION INFORMATION HERE
@@ -70,6 +68,27 @@ securityDefinitions:
     type: apiKey
     name: auth-secret
     in: header
+  x-code-samples:
+  - lang: Curl
+    source: |-
+      curl -X GET -H "Authorization: Example 1" -H "Content-Type: application/json" -d '{
+          "auth-id": "username",
+          "auth-secret": "password"
+        }' "https://omsss.online/api/collection"
+  - lang: perl
+    source: |-
+      my $response = Furl->new( timeout => $self->ua_timeout )->$http_method(
+          $url,
+          [
+              'auth-id'      => $self->omsss_auth_id,
+              'auth-secret'  => $self->omsss_secret,
+               'Content-Type' => 'application/json',
+          ],
+          ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+      );
+
+
+
 
 
 basePath: /api
