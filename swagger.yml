@@ -33,7 +33,9 @@ info:
 
     Your login will give you access to both instances.
 
-    # Authorisation
+    # Authentication
+
+    @@@ FILL IN AUTHENTICATION INFORMATION HERE @@@
 
     <!-- ReDoc-Inject: <security-definitions> -->
 
