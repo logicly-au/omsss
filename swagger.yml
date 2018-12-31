@@ -61,8 +61,7 @@ securityDefinitions:
     name: auth-secret
     in: header
   description: |
-
-  Authentication description here....@@@@@@@@@
+    Authentication description here....@@@@@@@@@
 
 basePath: /api
 
