@@ -56,12 +56,13 @@ securityDefinitions:
     type: apiKey
     name: auth-id
     in: header
+    description: |
+      auth-id description here.
   secret:
     type: apiKey
     name: auth-secret
     in: header
-  description: |
-    Authentication description here....@@@@@@@@@
+
 
 basePath: /api
 
