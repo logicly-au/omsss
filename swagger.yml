@@ -7,6 +7,10 @@ info:
     name: OMSSS REST API Support
     url: https://docs.omsss.online/
     email: support@omsss.online
+  x-logo:
+    url: https://staging.omsss.online/assets/logo.png
+    backgroundColor: #FFFFFF
+    altText: OMSSS Logo
   description: |
     # Introduction
 
@@ -68,26 +72,6 @@ securityDefinitions:
     type: apiKey
     name: auth-secret
     in: header
-  x-code-samples:
-  - lang: Curl
-    source: |-
-      curl -X GET -H "Authorization: Example 1" -H "Content-Type: application/json" -d '{
-          "auth-id": "username",
-          "auth-secret": "password"
-        }' "https://omsss.online/api/collection"
-  - lang: perl
-    source: |-
-      my $response = Furl->new( timeout => $self->ua_timeout )->$http_method(
-          $url,
-          [
-              'auth-id'      => $self->omsss_auth_id,
-              'auth-secret'  => $self->omsss_secret,
-               'Content-Type' => 'application/json',
-          ],
-          ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
-      );
-
-
 
 
 
@@ -111,6 +95,15 @@ paths:
       responses:
         200:
           description: "Successful operation"
+      x-code-samples:
+      - lang: Curl
+        source: |-
+          curl -X GET "https://omsss.online/api/version"
+      - lang: perl
+        source: |-
+          my $response = Furl->new()->get(
+            "https://omsss.online/api/version"
+          );
   /ping:
     get:
       tags:
