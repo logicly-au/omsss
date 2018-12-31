@@ -22,13 +22,22 @@ info:
 
     In order to obtain an account to access the OMSSS REST API, please contact support@omsss.online.
 
-    The OMSSS REST API is available at the following endpints:
+    The OMSSS REST API is available at the following endpoints:
 
     | Instance    | Base URL for REST Endpoints          |
     |-------------|--------------------------------------|
     | Production  | https://omsss.online/api/            |
-    | Developers  | https://developers.omsss.onlime/api/ |
+    | Developers  | https://developers.omsss.online/api/ |
 
+    The Production instance provides access to your live data. The Developers instance runs the same version of OMSSS as the Production instance, but can be used to test your code without affecting your live data.
+
+    Your login will give you access to both instances.
+
+    # API Changelog
+
+    | Date     | Changes                                 |
+    |----------|-----------------------------------------|
+    | 1/1/2019 | Version 0.0.3 released                  |
 
 tags:
 - name: "operations"
@@ -39,7 +48,7 @@ tags:
   description: "End points available to integrators"
 - name: "internal"
   x-displayName: "Internal"
-  description: "For internal use only"
+  description: "**FOR INTERNAL USE ONLY**"
 
 
 securityDefinitions:
@@ -51,6 +60,9 @@ securityDefinitions:
     type: apiKey
     name: auth-secret
     in: header
+  description: |
+
+  Authentication description here....@@@@@@@@@
 
 basePath: /api
 
