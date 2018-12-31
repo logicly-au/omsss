@@ -4,8 +4,8 @@ info:
   version: "0.0.3"
   title: Outcome Measures Self Service System API
   contact:
-    name: "OMSSS API Support",
-    url: "https://docs.omsss.online/",
+    name: "OMSSS API Support"
+    url: "https://docs.omsss.online/"
     email: "support@pmhc-mds.com"
   description: |
     The Outcome Measures Self Service System (OMSSS) API is the API that integrators use to communicate with the OMSSS system.
