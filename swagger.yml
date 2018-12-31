@@ -98,7 +98,7 @@ paths:
       x-code-samples:
       - lang: Curl
         source: |-
-          curl -X GET "https://omsss.online/api/version"
+          curl "https://omsss.online/api/version"
       - lang: perl
         source: |-
           my $response = Furl->new()->get(
