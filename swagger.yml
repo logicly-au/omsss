@@ -4,19 +4,19 @@ info:
   version: "0.0.3"
   title: Outcome Measures Self Service System API
   description: |
-    The Outcome Measures Self Service System (OMSSS) API is the
-    API that integrators use to communicate with the OMSSS system.
+    The Outcome Measures Self Service System (OMSSS) API is the API that integrators use to communicate with the OMSSS system.
 
 tags:
 - name: "operations"
   x-displayName: "Operations"
   description: "Operational End Points"
-- name: "internal"
-  x-displayName: "Internal"
-  description: "For internal use only"
 - name: "external"
   x-displayName: "External"
   description: "End points available to integrators"
+- name: "internal"
+  x-displayName: "Internal"
+  description: "For internal use only"
+
 
 securityDefinitions:
   application_id:
