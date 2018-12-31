@@ -33,6 +33,10 @@ info:
 
     Your login will give you access to both instances.
 
+    # Authorisation
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
     # API Changelog
 
     | Date     | Changes                                 |
