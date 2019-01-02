@@ -45,6 +45,8 @@ info:
 
     # Process
 
+    Description of process here.
+
     <img alt="Requesting a new collection from OMSSS REST API" src="https://docs.pmhc-mds.com/_images/data-model.svg" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
 
     # API Changelog
