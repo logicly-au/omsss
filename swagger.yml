@@ -257,7 +257,7 @@ paths:
           };
           my ($response, $decoded);
           try {
-            $response = Furl->new()->$http_method(
+            $response = Furl->new()->post(
               "https://omsss.online/api/collection",
               [
                 'auth-id'      => $omsss_auth_id,
@@ -266,7 +266,6 @@ paths:
               ],
               ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
             );
-            # decode response if successful (except for 204 responses that have no body..)
             if ( $response->is_success ) {
               $decoded = length $response->content
                        ? Cpanel::JSON::XS::decode_json($response->content)
