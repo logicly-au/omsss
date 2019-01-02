@@ -248,6 +248,13 @@ paths:
             key     => 'sample_key',
             alg     => 'HS256'
           );
+          my $body = +{
+            measure      => 'k5',
+            postback_url => 'postback_uri',
+            payload      => $payload,
+            sms          => '0419 123 456'',
+            email        => 'example@example.com',
+          };
 
   /collection/{uuid}/result:
     get:
