@@ -168,14 +168,28 @@ paths:
     get:
       tags:
       - "operations"
-      summary: "OMSSS API health-check"
-      description: "Health checks routines ensure all aspects of the application are performing at expected levels"
+      summary: "health-check"
+      description: |
+        OMSSS API health-check. Health checks routines ensure all aspects of
+        the application are performing at expected levels.
       operationId: "Root::health_check"
       produces:
-      - "application/json"
+      - "string"
       responses:
         200:
           description: "Successful operation"
+          examples:
+            string:
+              Ok
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl "https://omsss.online/api/health-check"
+      - lang: perl
+        source: |-
+          my $response = Furl->new()->get(
+            "https://omsss.online/api/health-check"
+          );
 
 #----------------------------------------------------------------------
 # External
