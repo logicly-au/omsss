@@ -43,11 +43,23 @@ info:
 
     <!-- ReDoc-Inject: <security-definitions> -->
 
+    # Definitions
+
+    | Term                | Meaning                                                                                  |
+    |---------------------|------------------------------------------------------------------------------------------|
+    | Measure             | A diagnostic tool used in healthcare. In the case of OMSSS these are all questionnaires. |
+    | Collection          | An instance of a **Measure** assigned to a particular client.                            |
+    | Registration System | A thrid party system (including the PMHC MDS) that has an API connection to OMSSS.       |
+
     # Process
 
-    Description of process here.
+    # Requesting a new Collection
 
     <img alt="Requesting a new collection from OMSSS REST API" src="https://docs.pmhc-mds.com/_images/data-model.svg" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
+
+    In order to create a new collection in OMSSS the Registration System sends
+    a request to the OMSSS system using the REST API endpoint <a href="#operation/Collection::create">POST /collection</a> .
+
 
     # API Changelog
 
