@@ -200,7 +200,7 @@ paths:
       summary: "collection"
       description:
         Use collection to request a link to an instance of a measure that is
-        assigned to a particular client
+        assigned to a particular client.
       tags:
       - external
       security:
@@ -225,13 +225,58 @@ paths:
         type: "boolean"
       responses:
         200:
-          description: Sucessful response
+          description: Successful response
           schema:
             $ref: "#/definitions/CollectionLinkResponse"
+          examples:
+            application/json:
         400:
           description: Invalid input
           schema:
             $ref: "#/definitions/Error"
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl "https://omsss.online/api/collection"
+      -lang: perl
+          tie my %token, 'Hash::Ordered', (
+              client_id => 'unique_client_id',
+          );
+          my $payload = Crypt::JWT::encode_jwt(
+            payload => \%token,
+            key     => 'sample_key',
+            alg     => 'HS256'
+          );
+
+          my $body = +{
+            measure      => 'k5',
+            postback_url => 'postback_uri',
+            payload      => $payload,
+            sms          => '0419 123 456'',
+            email        => 'example@example.com',
+          };
+
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->$http_method(
+              "https://omsss.online/api/collection",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+                'Content-Type' => 'application/json',
+              ],
+              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+            );
+            # decode response if successful (except for 204 responses that have no body..)
+            if ( $response->is_success ) {
+              $decoded = length $response->content
+                       ? Cpanel::JSON::XS::decode_json($response->content)
+                       : '';
+            }
+          }
+          catch {
+            $message .= ": $_";
+          };
 
   /collection/{uuid}/result:
     get:
