@@ -243,10 +243,11 @@ paths:
     get:
       tags:
       - "external"
+      summary: "collection/{uuid}/result"
+      description: "Retrieve a submitted data collection."
       security:
       - application_id: []
         secret: []
-      summary: "Retrieve a submitted data collection"
       operationId: "Collection::result"
       consumes:
       - "application/json"
@@ -255,7 +256,7 @@ paths:
       parameters:
       - in: "path"
         name: "uuid"
-        description: "UUID of collection to retrieve"
+        description: "UUID of collection to retrieve."
         required: true
         type: "string"
       responses:
