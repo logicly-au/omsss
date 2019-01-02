@@ -241,7 +241,7 @@ paths:
       - lang: perl
         source: |-
           tie my %token, 'Hash::Ordered', (
-              client_id => 'unique_client_id',
+            client_id => 'unique_client_id',
           );
 
   /collection/{uuid}/result:
