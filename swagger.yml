@@ -49,7 +49,7 @@ info:
     |---------------------|------------------------------------------------------------------------------------------|
     | Measure             | A diagnostic tool used in healthcare. In the case of OMSSS these are all questionnaires. |
     | Collection          | An instance of a **Measure** assigned to a particular client.                            |
-    | Registration System | A thrid party system (including the PMHC MDS) that has an API connection to OMSSS.       |
+    | Registration System | A third party system (including the PMHC MDS) that has an API connection to OMSSS.       |
 
     # Process
 
@@ -153,6 +153,9 @@ paths:
 
   /collection:
     post:
+      description:
+        Use collection to request a link to an instance of a measure that is
+        assigned to a particular client
       tags:
       - external
       security:
