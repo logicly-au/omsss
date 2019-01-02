@@ -47,8 +47,9 @@ info:
 
     | Term                | Meaning                                                                                  |
     |---------------------|------------------------------------------------------------------------------------------|
+    | Client              | The person who is receiving the psychological service.                                   |
     | Measure             | A diagnostic tool used in healthcare. In the case of OMSSS these are all questionnaires. |
-    | Collection          | An instance of a **Measure** assigned to a particular client.                            |
+    | Collection          | An instance of a **measure** assigned to a particular **client**.                        |
     | Registration System | A third party system (including the PMHC MDS) that has an API connection to OMSSS.       |
 
     # Process
@@ -153,6 +154,7 @@ paths:
 
   /collection:
     post:
+      summary: "collection"
       description:
         Use collection to request a link to an instance of a measure that is
         assigned to a particular client
@@ -161,7 +163,6 @@ paths:
       security:
       - application_id: []
         secret: []
-      summary: "Add a new outcome measure link"
       operationId: "Collection::create"
       consumes:
       - "application/json"
@@ -176,7 +177,7 @@ paths:
           $ref: "#/definitions/CollectionLinkRequest"
       - name: "include_qrcode_image"
         in: "query"
-        description: "Set to true to include the QR code as a data-url in the response"
+        description: "Set to true to include the QR code as a data-url in the response."
         required: false
         type: "boolean"
       responses:
@@ -506,7 +507,7 @@ definitions:
         description: "Short code for accessing collection"
       link:
         type: "string"
-        description: "URI for patients to access collection"
+        description: "URI for client to access collection"
       qr_code_url:
         type: "string"
         description: "URI for QR code to access collection"
@@ -600,7 +601,7 @@ definitions:
         $ref: "#/definitions/Measure"
 
   CollectionAnswer:
-    description: "Patient response to a single question"
+    description: "Client response to a single question"
     type: "object"
     properties:
       question_id:
@@ -655,11 +656,11 @@ definitions:
       first_opened_utc:
         type: "string"
         example: "2018-04-01T12:34:55Z"
-        description: "Date/time in ISO-8601 format that the patient first opened the collection"
+        description: "Date/time in ISO-8601 format that the client first opened the collection"
       submitted_utc:
         type: "string"
         example: "2018-04-01T12:34:55Z"
-        description: "Date/time in ISO-8601 format that the patient submitted the collection"
+        description: "Date/time in ISO-8601 format that the client submitted the collection"
 
 
   MeasureType:
@@ -667,15 +668,14 @@ definitions:
     type: string
     enum:
       - k5
-      - k10
       - k10p
-      - sdq-pc1
-      - sdq-pc2
-      - sdq-py1
-      - sdq-py2
-      - sdq-yr1
-      - sdq-yr2
-      - test
+      - sidas
+      #- sdq-pc1
+      #- sdq-pc2
+      #- sdq-py1
+      #- sdq-py2
+      #- sdq-yr1
+      #- sdq-yr2
 
   Error:
     type: "string"
