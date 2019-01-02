@@ -243,38 +243,6 @@ paths:
           tie my %token, 'Hash::Ordered', (
               client_id => 'unique_client_id',
           );
-          my $payload = Crypt::JWT::encode_jwt(
-            payload => \%token,
-            key     => 'sample_key',
-            alg     => 'HS256'
-          );
-          my $body = +{
-            measure      => 'k5',
-            postback_url => 'postback_uri',
-            payload      => $payload,
-            sms          => '0419 123 456'',
-            email        => 'example@example.com',
-          };
-          my ($response, $decoded);
-          try {
-            $response = Furl->new()->post(
-              "https://omsss.online/api/collection",
-              [
-                'auth-id'      => $omsss_auth_id,
-                'auth-secret'  => $omsss_secret,
-                'Content-Type' => 'application/json',
-              ],
-              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
-            );
-            if ( $response->is_success ) {
-              $decoded = length $response->content
-                       ? Cpanel::JSON::XS::decode_json($response->content)
-                       : '';
-            }
-          }
-          catch {
-            $message .= ": $_";
-          };
 
   /collection/{uuid}/result:
     get:
