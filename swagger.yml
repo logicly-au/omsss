@@ -107,7 +107,12 @@ paths:
       tags:
       - "operations"
       summary: "OMSSS API version information."
-      description: "A change in the first digit can break backwards compatability. The second digit implies new functionality. The third digit is a patch release."
+      description: |
+        OMSSS API version information in the form x.y.z.
+        
+        - A change in the first digit can break backwards compatability.
+        - The second digit implies new functionality.
+        - The third digit is a patch release.
       operationId: "Root::version"
       produces:
       - "application/json"
