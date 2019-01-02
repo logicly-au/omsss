@@ -234,6 +234,10 @@ paths:
           description: Invalid input
           schema:
             $ref: "#/definitions/Error"
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl "https://omsss.online/api/collection"
 
   /collection/{uuid}/result:
     get:
