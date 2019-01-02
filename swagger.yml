@@ -240,9 +240,10 @@ paths:
           curl "https://omsss.online/api/collection"
       - lang: perl
         source: |-
-          tie my %token, 'Hash::Ordered', (
-            client_id => 'unique_client_id',
+          my $response = Furl->new()->get(
+            "https://omsss.online/api/health-check"
           );
+
 
   /collection/{uuid}/result:
     get:
