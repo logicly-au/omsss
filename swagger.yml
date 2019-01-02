@@ -199,7 +199,7 @@ paths:
     post:
       summary: "collection"
       description:
-        Use collection to request a link to an instance of a measure that is
+        Use /collection to request a link to an instance of a measure that is
         assigned to a particular client.
       tags:
       - external
