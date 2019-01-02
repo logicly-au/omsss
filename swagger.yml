@@ -43,6 +43,10 @@ info:
 
     <!-- ReDoc-Inject: <security-definitions> -->
 
+    # Process
+
+    <img alt="Requesting a new collection from OMSSS REST API" src="https://raw.githubusercontent.com/strategicdata/omsss/master/images/requesting_a_new_collection.svg" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
+
     # API Changelog
 
     | Date     | Changes                                 |
