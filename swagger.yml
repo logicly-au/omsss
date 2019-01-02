@@ -234,16 +234,6 @@ paths:
           description: Invalid input
           schema:
             $ref: "#/definitions/Error"
-      x-code-samples:
-      - lang: curl
-        source: |-
-          curl "https://omsss.online/api/collection"
-      - lang: perl
-        source: |-
-          my $response = Furl->new()->get(
-            "https://omsss.online/api/health-check"
-          );
-
 
   /collection/{uuid}/result:
     get:
