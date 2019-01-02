@@ -45,7 +45,7 @@ info:
 
     # Process
 
-    <img alt="Requesting a new collection from OMSSS REST API" src="https://raw.githubusercontent.com/strategicdata/omsss/master/images/requesting_a_new_collection.svg" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
+    <img alt="Requesting a new collection from OMSSS REST API" src="https://docs.pmhc-mds.com/_images/data-model.svg" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
 
     # API Changelog
 
