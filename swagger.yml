@@ -144,14 +144,26 @@ paths:
     get:
       tags:
       - "operations"
-      summary: "OMSSS API ping"
+      summary: "ping"
       description: "The application will respond with a success message indicating it is running."
       operationId: "Root::ping"
       produces:
-      - "application/json"
+      - "string"
       responses:
         200:
           description: "Successful operation"
+          examples:
+            string:
+              Ok
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl "https://omsss.online/api/ping"
+      - lang: perl
+        source: |-
+          my $response = Furl->new()->get(
+            "https://omsss.online/api/ping"
+          );
   /health-check:
     get:
       tags:
