@@ -255,6 +255,23 @@ paths:
             sms          => '0419 123 456'',
             email        => 'example@example.com',
           };
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->post(
+              "https://omsss.online/api/collection",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+                'Content-Type' => 'application/json',
+              ],
+              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+            );
+            if ( $response->is_success ) {
+              $decoded = length $response->content
+                       ? Cpanel::JSON::XS::decode_json($response->content)
+                       : '';
+            }
+          }
 
   /collection/{uuid}/result:
     get:
