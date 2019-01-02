@@ -238,6 +238,11 @@ paths:
       - lang: curl
         source: |-
           curl "https://omsss.online/api/collection"
+      - lang: perl
+        source: |-
+          tie my %token, 'Hash::Ordered', (
+            client_id => 'unique_client_id',
+          );
 
   /collection/{uuid}/result:
     get:
