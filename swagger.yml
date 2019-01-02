@@ -243,6 +243,11 @@ paths:
           tie my %token, 'Hash::Ordered', (
             client_id => 'unique_client_id',
           );
+          my $payload = Crypt::JWT::encode_jwt(
+            payload => \%token,
+            key     => 'sample_key',
+            alg     => 'HS256'
+          );
 
   /collection/{uuid}/result:
     get:
