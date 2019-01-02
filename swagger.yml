@@ -119,8 +119,20 @@ paths:
       responses:
         200:
           description: "Successful operation"
+          examples:
+            application/json:
+            - git:
+                tag: v0.1.1
+                sha: c80bb751479f8cab2fa2e6e6168f7ada90b73e92
+                date: Fri Nov 9 16:20:58 2018
+              built: Fri  9 Nov 2018 16:24:07 AEDT
+          schema:
+            description: ''
+            type: array
+            items:
+              $ref: '#/definitions/VersionResponse'
       x-code-samples:
-      - lang: Curl
+      - lang: curl
         source: |-
           curl "https://omsss.online/api/version"
       - lang: perl
@@ -476,6 +488,27 @@ paths:
 #----------------------------------------------------------------------
 
 definitions:
+
+  VersionResponse:
+    description: "Reply to POST /version"
+    type: "object"
+    properties:
+      git:
+        description: ""
+        type: "object"
+        properties:
+          tag:
+            description: "The actual version number."
+            type: "string"
+          sha:
+            description: "The git commit sha of the release."
+            type: "string"
+          date:
+            description: "The date of the git commit."
+            type: "string"
+      built:
+        description: "The date the release was built."
+        type: "string"
 
   CollectionLinkRequest:
     description: "Request for POST /collection"
