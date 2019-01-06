@@ -272,6 +272,9 @@ paths:
                        : '';
             }
           }
+          catch {
+            $message .= ": $_";
+          };
 
   /collection/{uuid}/result:
     get:
