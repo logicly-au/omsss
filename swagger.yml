@@ -287,7 +287,7 @@ paths:
   /collection/{uuid}/result:
     get:
       summary: "collection/{uuid}/result"
-      description: "User /collection/{uuid}/result to retrieve a submitted collection."
+      description: "Use /collection/{uuid}/result to retrieve a submitted collection."
       tags:
       - "external"
       security:
@@ -519,7 +519,7 @@ paths:
                 'auth-secret'  => $omsss_secret,
                 'Content-Type' => 'application/json',
               ],
-              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+              () )
             );
             if ( $response->is_success ) {
               $decoded = length $response->content
@@ -533,12 +533,13 @@ paths:
 
   /collection/{uuid}/notify:
     post:
+      summary: "collection/{uuid}/notify"
+      description: "Use /collection/{uuid}/notify to send a submitted collection report to the practitioner"
       tags:
       - "external"
       security:
       - application_id: []
         secret: []
-      summary: "Send a submitted data collection report to the clinician"
       operationId: "Collection::notify"
       consumes:
       - "application/json"
@@ -547,7 +548,7 @@ paths:
       parameters:
       - in: "path"
         name: "uuid"
-        description: "UUID of outcome measure to report on"
+        description: "UUID of collection to report on"
         required: true
         type: "string"
       - name: "body"
@@ -569,6 +570,39 @@ paths:
           description: "Collection not found"
           schema:
             $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              errors:
+                uuid: UUID not found
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '["practitioner@example.com"]' "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify"
+      - lang: perl
+        source: |-
+          my $body = +[
+            'practitioner@example.com'
+          ];
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->post(
+              "https://omsss.online/api/collection",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+                'Content-Type' => 'application/json',
+              ],
+              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+            );
+            if ( $response->is_success ) {
+              $decoded = length $response->content
+                       ? Cpanel::JSON::XS::decode_json($response->content)
+                       : '';
+            }
+          }
+          catch {
+            $message .= ": $_";
+          };
 
   /collection/{uuid}:
     delete:
