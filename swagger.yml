@@ -311,236 +311,182 @@ paths:
             $ref: "#/definitions/CompleteCollection"
           examples:
             application/json:
-              submitted_utc: 2019-01-07T03:49:28Z
-              first_opened_utc: 2019-01-07T03:49:12Z
-              - questions:
+              submitted_utc: '2019-01-07T03:49:28Z'
+              first_opened_utc: '2019-01-07T03:49:12Z'
+              questions:
+              - question: In the last four weeks, about how often did you feel nervous?
+                options:
+                - text: None of the time
+                  value: '1'
+                  scores:
+                    total: 1
+                - text: A little of the time
+                  value: '2'
+                  scores:
+                    total: 2
+                - text: Some of the time
+                  value: '3'
+                  scores:
+                    total: 3
+                - text: Most of the time
+                  value: '4'
+                  scores:
+                    total: 4
+                - scores:
+                    total: 5
+                  text: All of the time
+                  value: '5'
                 question_number: 1
                 id: 28
-                question: In the last four weeks, about how often did you feel nervous?
-                - options:
+              - id: 29
+                options:
+                - value: '1'
                   text: None of the time
-                  value: 1
                   scores:
                     total: 1
-                - options:
+                - value: '2'
                   text: A little of the time
-                  value: 2
                   scores:
                     total: 2
-                - options:
-                  text: Some of the time
-                  value: 3
-                  scores:
+                - scores:
                     total: 3
-                - options:
-                  text: Most of the time
-                  value: 4
-                  scores:
+                  text: Some of the time
+                  value: '3'
+                - scores:
                     total: 4
-                - options:
+                  text: Most of the time
+                  value: '4'
+                - value: '5'
                   text: All of the time
-                  value: 5
                   scores:
                     total: 5
-              - questions:
                 question_number: 2
-                id: 29
                 question: In the last four weeks, about how often did you feel without hope?
-                - options:
+              - question: In the last four weeks, about how often did you feel restless or jumpy?
+                options:
+                - scores:
+                  total: 1
+                  value: '1'
                   text: None of the time
-                  value: 1
-                  scores:
-                    total: 1
-                - options:
-                  text: A little of the time
-                  value: 2
-                  scores:
+                - scores:
                     total: 2
-                - options:
-                  text: Some of the time
-                  value: 3
-                  scores:
+                  value: '2'
+                  text: A little of the time
+                - scores:
                     total: 3
-                - options:
-                  text: Most of the time
-                  value: 4
-                  scores:
+                  text: Some of the time
+                  value: '3'
+                - scores:
                     total: 4
-                - options:
-                  text: All of the time
-                  value: 5
-                  scores:
+                  text: Most of the time
+                  value: '4'
+                - scores:
                     total: 5
-              - questions:
+                  value: '5'
+                  text: All of the time
                 question_number: 3
                 id: 30
-                question: In the last four weeks, about how often did you feel restless or jumpy?
-                - options:
-                  text: None of the time
-                  value: 1
-                  scores:
-                    total: 1
-                - options:
-                  text: A little of the time
-                  value: 2
-                  scores:
-                    total: 2
-                - options:
-                  text: Some of the time
-                  value: 3
-                  scores:
-                    total: 3
-                - options:
-                  text: Most of the time
-                  value: 4
-                  scores:
-                    total: 4
-                - options:
-                  text: All of the time
-                  value: 5
-                  scores:
-                    total: 5
-              - questions:
+              - question: In the last four weeks, about how often did you feel everything was an
+                  effort?
                 question_number: 4
+                options:
+                - text: None of the time
+                  value: '1'
+                  scores:
+                    total: 1
+                - scores:
+                    total: 2
+                  value: '2'
+                  text: A little of the time
+                - scores:
+                    total: 3
+                  text: Some of the time
+                  value: '3'
+                - scores:
+                    total: 4
+                  text: Most of the time
+                  value: '4'
+                - text: All of the time
+                  value: '5'
+                  scores:
+                    total: 5
                 id: 31
-                question: In the last four weeks, about how often did you feel everything was an effort?
-                - options:
-                  text: None of the time
-                  value: 1
-                  scores:
-                    total: 1
-                - options:
-                  text: A little of the time
-                  value: 2
-                  scores:
-                    total: 2
-                - options:
-                  text: Some of the time
-                  value: 3
-                  scores:
-                    total: 3
-                - options:
-                  text: Most of the time
-                  value: 4
-                  scores:
-                    total: 4
-                - options:
-                  text: All of the time
-                  value: 5
-                  scores:
-                    total: 5
-              - questions:
+              - id: 32
+                question: In the last four weeks, about how often did you feel so sad that nothing
+                  could cheer you up?
                 question_number: 5
-                id: 32
-                question: In the last four weeks, about how often did you feel so sad that nothing could cheer you up?
-                - options:
-                  text: None of the time
-                  value: 1
-                  scores:
+                options:
+                - scores:
                     total: 1
-                - options:
-                  text: A little of the time
-                  value: 2
+                  value: '1'
+                  text: None of the time
+                - text: A little of the time
+                  value: '2'
                   scores:
                     total: 2
-                - options:
-                  text: Some of the time
-                  value: 3
-                  scores:
+                - scores:
                     total: 3
-                - options:
-                  text: Most of the time
-                  value: 4
+                  text: Some of the time
+                  value: '3'
+                - text: Most of the time
+                  value: '4'
                   scores:
                     total: 4
-                - options:
-                  text: All of the time
-                  value: 5
+                - text: All of the time
+                  value: '5'
                   scores:
                     total: 5
-              report: |-
-                <p>A K5 outcome measure has been completed by a client with the OMSSS code <b>RMA1A60</b>.</p>
-
-                <h2>Score</h2>
-
-                <p>The total score from the outcome measure is: <b>15</b></p>
-
-
-                <h2>Responses</h2>
-
-                <table>
-                  <thead>
-                    <tr>
-                      <th colspan=\"2\">Question</th>
-                      <th>Response</th>
-                      <th>Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>In the last four weeks, about how often did you feel nervous?</td>
-                      <td>None of the time</td>
-                      <td>1</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>In the last four weeks, about how often did you feel without hope?</td>
-                      <td>A little of the time</td>
-                      <td>2</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>In the last four weeks, about how often did you feel restless or jumpy?</td>
-                      <td>Some of the time</td>
-                      <td>3</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>In the last four weeks, about how often did you feel everything was an effort?</td>
-                      <td>Most of the time</td>
-                      <td>4</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>In the last four weeks, about how often did you feel so sad that nothing could cheer you up?</td>
-                      <td>All of the time</td>
-                      <td>5</td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan=\"3\">TOTAL</td>
-                      <td>15</td>
-                    </tr>
-                  </tfoot>
-                </table>
+              report: "<p>A K5 outcome measure has been completed by a client with the OMSSS code
+                <b>RMA1A60</b>.</p>\n\n        <h2>Score</h2>\n\n        <p>The total score from
+                the outcome measure is: <b>15</b></p>\n\n\n        <h2>Responses</h2>\n\n        <table>\n
+                \           <thead>\n                <tr>\n                    <th colspan=\"2\">Question</th>\n
+                \                   <th>Response</th>\n                    <th>Score</th>\n                </tr>\n
+                \           </thead>\n            <tbody>\n                \n                    <tr>\n
+                \                       <td>1</td>\n                        <td>In the last four
+                weeks, about how often did you feel nervous?</td>\n                        <td>None
+                of the time</td>\n                        <td>1</td>\n                    </tr>\n
+                \               \n                    <tr>\n                        <td>2</td>\n
+                \                       <td>In the last four weeks, about how often did you feel
+                without hope?</td>\n                        <td>A little of the time</td>\n                        <td>2</td>\n
+                \                   </tr>\n                \n                    <tr>\n                        <td>3</td>\n
+                \                       <td>In the last four weeks, about how often did you feel
+                restless or jumpy?</td>\n                        <td>Some of the time</td>\n                        <td>3</td>\n
+                \                   </tr>\n                \n                    <tr>\n                        <td>4</td>\n
+                \                       <td>In the last four weeks, about how often did you feel
+                everything was an effort?</td>\n                        <td>Most of the time</td>\n
+                \                       <td>4</td>\n                    </tr>\n                \n
+                \                   <tr>\n                        <td>5</td>\n                        <td>In
+                the last four weeks, about how often did you feel so sad that nothing could cheer
+                you up?</td>\n                        <td>All of the time</td>\n                        <td>5</td>\n
+                \                   </tr>\n                \n            </tbody>\n            <tfoot>\n
+                \               <tr>\n                    <td colspan=\"3\">TOTAL</td>\n                    <td>15</td>\n
+                \               </tr>\n            </tfoot>\n        </table>"
               answers:
-                28:
-                  response: 1
+                '28':
                   scores:
                     total: 1
                   resolved_response: None of the time
-                29:
-                  respose: 2
+                  response: '1'
+                '29':
+                  resolved_response: A little of the time
                   scores:
                     total: 2
-                  resolved_response: A little of the time
-                30:
-                  response: 3
+                  response: '2'
+                '30':
+                  response: '3'
                   scores:
                     total: 3
                   resolved_response: Some of the time
-                31:
-                  response: 4
+                '31':
+                  response: '4'
                   scores:
                     total: 4
                   resolved_response: Most of the time
-                32:
-                  response: 5
+                '32':
+                  resolved_response: All of the time
                   scores:
                     total: 5
-                  resolved_response: All of the time
+                  response: '5'
               measure_type: k5
               shortcode: RMA1A60
               scores:
