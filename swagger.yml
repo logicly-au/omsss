@@ -286,10 +286,10 @@ paths:
 
   /collection/{uuid}/result:
     get:
+      summary: "collection/{uuid}/result"
+      description: "User /collection/{uuid{/result to retrieve a submitted collection."
       tags:
       - "external"
-      summary: "collection/{uuid}/result"
-      description: "Retrieve a submitted data collection."
       security:
       - application_id: []
         secret: []
@@ -317,6 +317,36 @@ paths:
           description: "Collection not found"
           schema:
             $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              errors:
+                uuid: Collection is not submitted
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl -H "auth-id your-auth-id" -H "auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/result"
+      - lang: perl
+        source: |-
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->get(
+              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/result",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+                'Content-Type' => 'application/json',
+              ],
+              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+            );
+            if ( $response->is_success ) {
+              $decoded = length $response->content
+                       ? Cpanel::JSON::XS::decode_json($response->content)
+                       : '';
+            }
+          }
+          catch {
+            $message .= ": $_";
+          };
 
   /collection/{uuid}/notify:
     post:
