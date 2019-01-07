@@ -230,6 +230,10 @@ paths:
             $ref: "#/definitions/CollectionLinkResponse"
           examples:
             application/json:
+            - uuid: fa9bf0fc-d055-4f75-b74f-30ae490609f5
+              shortcode: RMA1A60
+              url: http://mn04.fz.sdlocal.net:7000/service/omsss/#/RMA1A60
+              qr_code_url: http://mn04.fz.sdlocal.net:7000/service/omsss/api/collection/RMA1A60/qr
         400:
           description: Invalid input
           schema:
@@ -237,7 +241,7 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl "https://omsss.online/api/collection"
+          curl -X POST -H "Content-Type: application/json" -H "auth-id: userid" -H "auth-secret: usersecret" -d '{"measure":"k5","postback_url":"https://api.your.service/pingback","payload":""}' "http://omsss.online/api/collection?include_qr_code=1"
       - lang: perl
         source: |-
           tie my %token, 'Hash::Ordered', (
