@@ -238,6 +238,10 @@ paths:
           description: Invalid input
           schema:
             $ref: "#/definitions/Error"
+          examples:
+            application/json:
+              errors:
+                body.measure: missing field measure
       x-code-samples:
       - lang: curl
         source: |-
@@ -781,7 +785,6 @@ definitions:
     enum:
       - k5
       - k10p
-      - sidas
       #- sdq-pc1
       #- sdq-pc2
       #- sdq-py1
