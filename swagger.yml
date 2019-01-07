@@ -606,12 +606,13 @@ paths:
 
   /collection/{uuid}:
     delete:
+      summary: "collection/{uuid}"
+      description: "Use collection/{uuid} to immediately expire a collection"
       tags:
       - "external"
       security:
       - application_id: []
         secret: []
-      summary: "Immediately expire a data collection"
       operationId: "Collection::expire"
       consumes:
       - "application/json"
@@ -634,12 +635,38 @@ paths:
           description: "Collection not found"
           schema:
             $ref: "#/definitions/Error"
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl -X DELETE -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
+      - lang: perl
+        source: |-
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->delete(
+              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+              ],
+              () )
+            );
+            if ( $response->is_success ) {
+              $decoded = length $response->content
+                       ? Cpanel::JSON::XS::decode_json($response->content)
+                       : '';
+            }
+          }
+          catch {
+            $message .= ": $_";
+          };
 
   /collection/{shortcode}/qr:
     get:
+      summary: collection/{shortcode}/qr
+      description: Returns a QR code representation of the link to the collection
       tags:
       - "external"
-      summary: Returns a QR code representation of the link to the collection
       operationId: "Collection::qr_code"
       produces:
         - image/png
@@ -654,10 +681,43 @@ paths:
           description: OK
           schema:
             type: file
+          examples:
+            image/png: |-
+              ?PNG
+
+IHDR{{W#<6IDATx???ˎ?F
+?6?|?3????????.q?t???w???m]?[26??7??n????MƆ@{l??+~k[7?{Pg?D?:???w??????>??!???@????ʶ??.?%L?????$Ud$?!?ج??????ym??ζ???F??#cC ?
+?ƺ??l?^?Lm???????MƆ@{?ʔm%???nݳ?S?~]q????@ϼA??+??ɶ????e8?Vr???H`C??R?d?1??휎3u6?{प??f?t??!???@?J?m?g??J??????W??'26?H)?C?3?u?8?Ϋ??J7	????u|e??{p??d?LJ????H`C???n??t???[w?;5??ZZߒ?!???@?+?d$?!???@	$?!???@	$?!???@?ҁ?#???IEND?B`?
         404:
           description: "Collection not found"
           schema:
             $ref: "#/definitions/Error"
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://omsss.online/api/collection/RMA1A60/qr"
+      - lang: perl
+        source: |-
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->delete(
+              "https://omsss.online/api/collection/RMA1A60/qr",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+              ],
+              () )
+            );
+            if ( $response->is_success ) {
+            #  $decoded = length $response->content
+            #           ? Cpanel::JSON::XS::decode_json($response->content)
+            #           : '';
+            # NEED TO RETURN PNG NOT JSON
+            }
+          }
+          catch {
+            $message .= ": $_";
+          };
 
 #----------------------------------------------------------------------
 # Internal
