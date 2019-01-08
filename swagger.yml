@@ -725,9 +725,10 @@ paths:
 
   /measure/{measure}:
     get:
+      summary: measure/{measure}
+      description: "Retrieve the metadata and questions for a measure"
       tags:
       - "internal"
-      summary: "Retrieve the metadata and questions for a measure"
       operationId: "Measure::getMeasure"
       produces:
       - "application/json"
@@ -750,10 +751,10 @@ paths:
 
   /collection/{shortcode}:
     get:
+      summary: collection/{shortcode}
+      description: "Find a data collection by it's shortcode. Returns a single data collection"
       tags:
       - "internal"
-      summary: "Find a data collection by it's shortcode"
-      description: "Returns a single data collection"
       operationId: "Collection::retrieve"
       produces:
       - "application/json"
@@ -779,9 +780,10 @@ paths:
             $ref: "#/definitions/Error"
 
     patch:
+      summary: collection/{shortcode}
+      description: "Update an existing data collection"
       tags:
       - "internal"
-      summary: "Update an existing data collection"
       operationId: "Collection::update"
       consumes:
       - "application/json"
@@ -814,9 +816,10 @@ paths:
             $ref: "#/definitions/Error"
 
     put:
+      summary: collection/{shortcode}
+      description: "Submit an existing data collection"
       tags:
       - "internal"
-      summary: "Submit an existing data collection"
       operationId: "Collection::submit"
       consumes:
       - "application/json"
@@ -842,9 +845,10 @@ paths:
 
   /collection/{shortcode}/answers:
     delete:
+      summary: collection/{shortcode}/answers
+      description: "Remove any saved answers for a collection"
       tags:
       - "internal"
-      summary: "Remove any saved answers for a collection"
       operationId: "Collection::reset"
       consumes:
       - "application/json"
