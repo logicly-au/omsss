@@ -54,13 +54,20 @@ info:
 
     # Process
 
-    # Requesting a new Collection
+    ## Requesting a new Collection
 
-    <img alt="Requesting a new collection from OMSSS REST API" src="https://docs.pmhc-mds.com/_images/data-model.svg" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
+    <img alt="Requesting a new collection from OMSSS REST API" src="https://go.gliffy.com/go/publish/12886204" /><p class="caption"><span class="caption-text">Requesting a new collection from OMSSS REST API</span></p>
 
     In order to create a new collection in OMSSS the Registration System sends
     a request to the OMSSS system using the REST API endpoint <a href="#operation/Collection::create">POST /collection</a> .
 
+    ## Retrieving Collection Results
+
+    <img alt="Retrieving Collection results using the OMSSS REST API" src="https://go.gliffy.com/go/publish/12886205" /><p class="caption"><span class="caption-text">Retrieving Collection results using the OMSSS REST API</span></p>
+
+    ## Sending Results to Provider Organisations and Practitioners
+
+    <img alt="Sending results to Provider Organisations and Practitioners using the OMSSS REST API" src="https://go.gliffy.com/go/publish/12886207" /><p class="caption"><span class="caption-text">RSending results to Provider Organisations and Practitioners using the OMSSS REST API</span></p>
 
     # API Changelog
 
