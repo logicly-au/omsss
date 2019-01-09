@@ -937,11 +937,7 @@ definitions:
     description: "Request for POST /collection/{uuid}/notify"
     type: "object"
     properties:
-      practitioner_emails:
-        type: "array"
-        items:
-          type: string
-      organisation_emails:
+      email:
         type: "array"
         items:
           type: string
