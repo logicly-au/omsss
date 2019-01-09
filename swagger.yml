@@ -596,7 +596,7 @@ paths:
         in: body
         required: true
         description: "Email address to send the report to"
-        example:
+        x-examples:
         - 'practitioner1@example.com'
         - 'practitioner2@example.com'
         schema:
@@ -630,7 +630,7 @@ paths:
           my ($response, $decoded);
           try {
             $response = Furl->new()->post(
-              "https://omsss.online/api/collection",
+              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
