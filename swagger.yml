@@ -67,8 +67,9 @@ info:
     can use to identify which client has completed the measure.
 
     The OMSSS system will create a new collection. Depending on the parameters
-    that have been used in the POST /collection call it will optionally email a
-    QR code and link to the client or SMS a link to the client.
+    that have been used in the <a href="#operation/Collection::create">POST /collection</a>
+    call it will optionally email a QR code and link to the client or SMS a link
+    to the client.
 
     The OMSSS system will then send a response to the Registration System. The
     response includes a unique number that the Registration System will use to
@@ -86,20 +87,21 @@ info:
     <img alt="Retrieving Collection results using the OMSSS REST API" src="https://go.gliffy.com/go/share/image/sycpgkna5r1nhmgulkni.png?utm_medium=live-embed&utm_source=custom" /><p class="caption"><span class="caption-text">Retrieving Collection results using the OMSSS REST API</span></p>
 
     When the client has completed the measure the OMSSS system will use the
-    postback URL and payload that was provided in the POST /collection call to
+    postback URL and payload that was provided in the
+    <a href="#operation/Collection::create">POST /collection</a> call to
     inform the Registration System that the measure has been complete.
 
-    The Registration System can then use the GET /collection/{uuid}/result
+    The Registration System can then use the <a href="#operation/Collection::result">GET /collection/{uuid}/result</a>
     endpoint to obtain the results of the collection.
 
     ## Sending Results to Provider Organisations and Practitioners
 
-    <img alt="Sending results to Provider Organisations and Practitioners using the OMSSS REST API" src="https://go.gliffy.com/go/share/image/sjt56nks19jd7yer4rir.png?utm_medium=live-embed&utm_source=custom" /><p class="caption"><span class="caption-text">RSending results to Provider Organisations and Practitioners using the OMSSS REST API</span></p>
+    <img alt="Sending results to Provider Organisations and Practitioners using the OMSSS REST API" src="https://go.gliffy.com/go/share/image/sjt56nks19jd7yer4rir.png?utm_medium=live-embed&utm_source=custom" /><p class="caption"><span class="caption-text">Sending results to Provider Organisations and Practitioners using the OMSSS REST API</span></p>
 
     Once the client has completed the measure the Registration System can
-    also use the POST /collection/{uuid}/notify endpoint to email the results
-    of the collection to an interested party such as a practitioner or
-    Provider Organisation.
+    also use the <a href="#operation/Collection::notify">POST /collection/{uuid}/notify</a>
+    endpoint to email a report of the results of the collection to an interested
+    party such as a practitioner or Provider Organisation.
 
     # API Changelog
 
@@ -594,8 +596,10 @@ paths:
         in: body
         required: true
         description: "Email address to send the report to"
+        example:
+        - 'practitioner1@example.com'
+        - 'practitioner2@example.com'
         schema:
-          description: "Email address to send the report to"
           type: array
           items:
             type: string
