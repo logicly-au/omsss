@@ -535,7 +535,7 @@ paths:
         required: true
         description: ""
         schema:
-          $ref: "#/definitions/EmailList"
+          $ref: "#/definitions/NotifyRequest"
       responses:
         204:
           description: "Report Sent"
