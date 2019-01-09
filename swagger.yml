@@ -20,18 +20,18 @@ info:
 
     The OMSSS REST API enables Outcome Measure integration into client management systems. It has been developed by [Strategic Data Pty. Ltd.](https://www.strategicdata.com.au/) on behalf of the Australian [Department of Health](https://health.gov.au/) as part of the [Primary Mental Health Care Minimum Data Set](https://pmhc-mds.com) (PMHC MDS). Although it was originally developed as part of the PMHC MDS project it can also be used to collection outcome measure data that is not subject to the data collection requirements of the PMHC MDS.
 
-    Please send any feedback or questions about this API to support@omsss.online.
+    Please send any feedback or questions about this API to <a href="mailto:support@omsss.online">support@omsss.online</a>.
 
     # Access to the API
 
-    In order to obtain an account to access the OMSSS REST API, please contact support@omsss.online.
+    In order to obtain an account to access the OMSSS REST API, please contact <a href="mailto:support@omsss.online">support@omsss.online</a>.
 
     The OMSSS REST API is available at the following endpoints:
 
-    | Instance    | Base URL for REST Endpoints          |
-    |-------------|--------------------------------------|
-    | Production  | https://omsss.online/api/            |
-    | Developers  | https://developers.omsss.online/api/ |
+    | Instance    | Base URL for REST Endpoints                    |
+    |-------------|------------------------------------------------|
+    | Production  | https://api.omsss.online/{version}/            |
+    | Developers  | https://developers.api.omsss.online/{version}/ |
 
     The Production instance provides access to your live data. The Developers instance runs the same version of OMSSS as the Production instance, but can be used to test your code without affecting your live data.
 
@@ -39,7 +39,10 @@ info:
 
     # Authentication
 
-    FILL IN AUTHENTICATION INFORMATION HERE
+    Please contact <a href="mailto:support@omsss.online">support@omsss.online</a> to obtain login details.
+
+    Integrators authenticate to the OMSSS REST API by providing the following
+    parameters in the HTTP Request Headers:
 
     <!-- ReDoc-Inject: <security-definitions> -->
 
@@ -127,7 +130,7 @@ securityDefinitions:
     name: auth-id
     in: header
     description: |
-      auth-id description here.
+      Each integrator will be provided with their own unqiue auth-id.
   secret:
     type: apiKey
     name: auth-secret
@@ -135,14 +138,9 @@ securityDefinitions:
 
 
 
-basePath: /api
+basePath: /v0.0.3
 
 paths:
-
-#----------------------------------------------------------------------
-# Operational
-#----------------------------------------------------------------------
-
   /version:
     get:
       tags:
@@ -181,60 +179,6 @@ paths:
           my $response = Furl->new()->get(
             "https://omsss.online/api/version"
           );
-  /ping:
-    get:
-      tags:
-      - "operations"
-      summary: "ping"
-      description: "The application will respond with a success message indicating it is running."
-      operationId: "Root::ping"
-      produces:
-      - "string"
-      responses:
-        200:
-          description: "Successful operation"
-          examples:
-            string:
-              Ok
-      x-code-samples:
-      - lang: curl
-        source: |-
-          curl "https://omsss.online/api/ping"
-      - lang: perl
-        source: |-
-          my $response = Furl->new()->get(
-            "https://omsss.online/api/ping"
-          );
-  /health-check:
-    get:
-      tags:
-      - "operations"
-      summary: "health-check"
-      description: |
-        OMSSS API health-check. Health checks routines ensure all aspects of
-        the application are performing at expected levels.
-      operationId: "Root::health_check"
-      produces:
-      - "string"
-      responses:
-        200:
-          description: "Successful operation"
-          examples:
-            string:
-              Ok
-      x-code-samples:
-      - lang: curl
-        source: |-
-          curl "https://omsss.online/api/health-check"
-      - lang: perl
-        source: |-
-          my $response = Furl->new()->get(
-            "https://omsss.online/api/health-check"
-          );
-
-#----------------------------------------------------------------------
-# External
-#----------------------------------------------------------------------
 
   /collection:
     post:
@@ -242,8 +186,6 @@ paths:
       description:
         Use /collection to request a link to an instance of a measure that is
         assigned to a particular client.
-      tags:
-      - external
       security:
       - application_id: []
         secret: []
@@ -329,8 +271,6 @@ paths:
     get:
       summary: "collection/{uuid}/result"
       description: "Use /collection/{uuid}/result to retrieve a submitted collection."
-      tags:
-      - "external"
       security:
       - application_id: []
         secret: []
@@ -576,8 +516,6 @@ paths:
     post:
       summary: "collection/{uuid}/notify"
       description: "Use /collection/{uuid}/notify to send a submitted collection report to the practitioner"
-      tags:
-      - "external"
       security:
       - application_id: []
         secret: []
@@ -595,14 +533,9 @@ paths:
       - name: "body"
         in: body
         required: true
-        description: "Email address to send the report to"
-        x-examples:
-        - 'practitioner1@example.com'
-        - 'practitioner2@example.com'
+        description: ""
         schema:
-          type: array
-          items:
-            type: string
+          $ref: "#/definitions/EmailList"
       responses:
         204:
           description: "Report Sent"
@@ -626,7 +559,7 @@ paths:
         source: |-
           my $body = +[
             'practitioner1@example.com',
-            'practitioner2#example.com'
+            'practitioner2@example.com'
           ];
           my ($response, $decoded);
           try {
@@ -653,8 +586,6 @@ paths:
     delete:
       summary: "collection/{uuid}"
       description: "Use collection/{uuid} to immediately expire a collection"
-      tags:
-      - "external"
       security:
       - application_id: []
         secret: []
@@ -710,8 +641,6 @@ paths:
     get:
       summary: collection/{shortcode}/qr
       description: Returns a QR code representation of the link to the collection
-      tags:
-      - "external"
       operationId: "Collection::qr_code"
       produces:
         - image/png
@@ -756,161 +685,6 @@ paths:
           catch {
             $message .= ": $_";
           };
-
-#----------------------------------------------------------------------
-# Internal
-#----------------------------------------------------------------------
-
-  /measure/{measure}:
-    get:
-      summary: measure/{measure}
-      description: "Retrieve the metadata and questions for a measure"
-      tags:
-      - "internal"
-      operationId: "Measure::getMeasure"
-      produces:
-      - "application/json"
-      parameters:
-        - name: "measure"
-          in: "path"
-          description: "Code of outcome measure to return"
-          required: true
-          type: "string"
-      responses:
-        200:
-          description: "Successful response"
-          schema:
-            $ref: "#/definitions/Measure"
-        404:
-          description: "Measure not found"
-          schema:
-            $ref: "#/definitions/Error"
-
-
-  /collection/{shortcode}:
-    get:
-      summary: collection/{shortcode}
-      description: "Find a data collection by it's shortcode. Returns a single data collection"
-      tags:
-      - "internal"
-      operationId: "Collection::retrieve"
-      produces:
-      - "application/json"
-      parameters:
-        - name: "shortcode"
-          in: "path"
-          description: "Shortcode of collection to return"
-          required: true
-          type: "string"
-        - name: "include_measure"
-          in: "query"
-          description: "Set to true to include the measure in the response"
-          required: false
-          type: "boolean"
-      responses:
-        200:
-          description: "Successful response"
-          schema:
-            $ref: "#/definitions/Collection"
-        404:
-          description: "Collection not found"
-          schema:
-            $ref: "#/definitions/Error"
-
-    patch:
-      summary: collection/{shortcode}
-      description: "Update an existing data collection"
-      tags:
-      - "internal"
-      operationId: "Collection::update"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "path"
-        name: "shortcode"
-        description: "Shortcode of outcome measure to be update"
-        required: true
-        type: "string"
-      - name: "body"
-        in: body
-        required: true
-        description: "Answers to be saved"
-        schema:
-          type: array
-          items:
-            $ref: '#/definitions/CollectionAnswer'
-      responses:
-        204:
-          description: "Collection updated with new answers"
-        400:
-          description: "Validation exception"
-          schema:
-            $ref: "#/definitions/Error"
-        404:
-          description: "Collection not found"
-          schema:
-            $ref: "#/definitions/Error"
-
-    put:
-      summary: collection/{shortcode}
-      description: "Submit an existing data collection"
-      tags:
-      - "internal"
-      operationId: "Collection::submit"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "path"
-        name: "shortcode"
-        description: "Shortcode of outcome measure to be update"
-        required: true
-        type: "string"
-      responses:
-        204:
-          description: "Collection submitted"
-        400:
-          description: "Validation exception"
-          schema:
-            $ref: "#/definitions/Error"
-        404:
-          description: "Collection not found"
-          schema:
-            $ref: "#/definitions/Error"
-
-  /collection/{shortcode}/answers:
-    delete:
-      summary: collection/{shortcode}/answers
-      description: "Remove any saved answers for a collection"
-      tags:
-      - "internal"
-      operationId: "Collection::reset"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "path"
-        name: "shortcode"
-        description: "Shortcode of collection"
-        required: true
-        type: "string"
-      responses:
-        204:
-          description: "Answers removed"
-        400:
-          description: "Validation exception"
-          schema:
-            $ref: "#/definitions/Error"
-        404:
-          description: "Collection not found"
-          schema:
-            $ref: "#/definitions/Error"
-
-
 
 #----------------------------------------------------------------------
 
@@ -1065,25 +839,6 @@ definitions:
       measure:
         $ref: "#/definitions/Measure"
 
-  CollectionAnswer:
-    description: "Client response to a single question"
-    type: "object"
-    properties:
-      question_id:
-        type: "integer"
-        example: 1
-        description: "Internal Question ID (globally unique across all measures)"
-      question_number:
-        type: "integer"
-        example: 1
-        description: "Measure-based question number (unique per measure)"
-      response:
-        type: "string"
-        example: "never"
-    required:
-    - "question_id"
-    - "response"
-
   CollectionScore:
     description: "Collection Score"
     type: "object"
@@ -1140,6 +895,19 @@ definitions:
       #- sdq-py2
       #- sdq-yr1
       #- sdq-yr2
+
+  NotifyRequest:
+    description: "Request for POST /collection/{uuid}/notify"
+    type: "object"
+    properties:
+      practitioner_emails:
+        type: "array"
+        items:
+          type: string
+      organisation_emails:
+        type: "array"
+        items:
+          type: string
 
   Error:
     type: "string"
