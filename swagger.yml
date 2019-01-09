@@ -113,15 +113,18 @@ info:
     | 1/1/2019 | Version 0.0.3 released                  |
 
 tags:
-- name: "operations"
-  x-displayName: "Operations"
-  description: "Operational End Points"
-- name: "external"
-  x-displayName: "External"
-  description: "End points available to integrators"
-- name: "internal"
-  x-displayName: "Internal"
-  description: "**FOR INTERNAL USE ONLY**"
+- name: "Request"
+  x-displayName: "Requesting a new Collection"
+  description: "Requesting a new Collection"
+- name: "Results"
+  x-displayName: "Results and Reports"
+  description: "Retrieving Collection Results and Sending Results to Provider Organisastions and Practitioners"
+- name: "Expire"
+  x-displayName: "Expiring or deleting a Collection"
+  description: "Expiring or deleting a Collection"
+- name: "Misc"
+  x-displayName: "Miscellaneous Endpoints"
+  description: "Miscellaneous Endpoints"
 
 
 securityDefinitions:
@@ -143,8 +146,6 @@ basePath: /v0.0.3
 paths:
   /version:
     get:
-      tags:
-      - "operations"
       summary: "version"
       description: |
         OMSSS API version information in the form x.y.z.
@@ -152,6 +153,8 @@ paths:
         - A change in the first digit can break backwards compatability.
         - The second digit implies new functionality.
         - The third digit is a patch release.
+      tags:
+      - "Misc"
       operationId: "Root::version"
       produces:
       - "application/json"
@@ -183,9 +186,11 @@ paths:
   /collection:
     post:
       summary: "collection"
-      description:
+      description: |
         Use /collection to request a link to an instance of a measure that is
         assigned to a particular client.
+      tags:
+      - "Request"
       security:
       - application_id: []
         secret: []
@@ -271,6 +276,8 @@ paths:
     get:
       summary: "collection/{uuid}/result"
       description: "Use /collection/{uuid}/result to retrieve a submitted collection."
+      tags:
+      - "Results"
       security:
       - application_id: []
         secret: []
@@ -516,6 +523,8 @@ paths:
     post:
       summary: "collection/{uuid}/notify"
       description: "Use /collection/{uuid}/notify to send a submitted collection report to the practitioner"
+      tags:
+      - "Results"
       security:
       - application_id: []
         secret: []
@@ -586,6 +595,8 @@ paths:
     delete:
       summary: "collection/{uuid}"
       description: "Use collection/{uuid} to immediately expire a collection"
+      tags:
+      - "Expire"
       security:
       - application_id: []
         secret: []
@@ -641,6 +652,8 @@ paths:
     get:
       summary: collection/{shortcode}/qr
       description: Returns a QR code representation of the link to the collection
+      tags:
+      - "Request"
       operationId: "Collection::qr_code"
       produces:
         - image/png
