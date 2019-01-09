@@ -621,11 +621,12 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '["practitioner@example.com"]' "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify"
+          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '["practitioner1@example.com","practitioner2@example.com"]' "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify"
       - lang: perl
         source: |-
           my $body = +[
-            'practitioner@example.com'
+            'practitioner1@example.com',
+            'practitioner2#example.com'
           ];
           my ($response, $decoded);
           try {
