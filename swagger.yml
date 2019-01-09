@@ -913,25 +913,26 @@ definitions:
     description: |
       Type of measure
 
-      | Enum value | Measure Name                                           | Availablity                  |
-      |------------|--------------------------------------------------------|------------------------------|
-      | k5         | K5 - Kessler 5                                         | Available to all integrators |
-      | k10p       | K10+ - Kessler 10 plus - "standard last month varient" | Available to all integrators |
-      | sidas      | SIDAS - Suicide Ideation Attributes Scale              | Contact support@omsss.online |
+      | Enum value | Measure Name                                    | Availablity                                                                                         |
+      |------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+      | K5         | Kessler 5                                       | Available to all integrators                                                                        |
+      | K10+       | Kessler 10 plus - "standard last month varient" | Available to all integrators                                                                        |
+      | SDQ        | Strengths and Difficulties Questionnaire        | Will be available to all integrators when the Department of Health finalises licensing requirements |
+      | SIDAS      | Suicide Ideation Attributes Scale               | Contact support@omsss.online                                                                        |
 
       Please contact <a href="mailto:support@omsss.online">support@omsss.online</a>
       to discuss the addition of other measures.
 
     type: string
     enum:
-      - k5
-      - k10p
-      #- sdq-pc1
-      #- sdq-pc2
-      #- sdq-py1
-      #- sdq-py2
-      #- sdq-yr1
-      #- sdq-yr2
+      - K5
+      - K10+
+      #- SDQ-PC1
+      #- SDQ-PC2
+      #- SDQ-PY1
+      #- SDQ-PY2
+      #- SDQ-YR1
+      #- SDQ-YR2
 
   NotifyRequest:
     description: "Request for POST /collection/{uuid}/notify"
