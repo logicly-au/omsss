@@ -153,8 +153,7 @@ securityDefinitions:
     in: header
 
 
-
-basePath: /v0.0.3
+basePath: /v1
 
 paths:
   /version:
