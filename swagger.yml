@@ -841,30 +841,6 @@ definitions:
       options:
         type: "object"
 
-  Collection:
-    description: "Response payload for GET /collection/{shortcode}"
-    type: "object"
-    properties:
-      shortcode:
-        type: "string"
-        example: "AZ947"
-      answers:
-        type: "object"
-        example: '{ "12": { "response": "orange" }, "14" : { "response": "7" } }'
-      measure_type:
-        $ref: "#/definitions/MeasureType"
-      status:
-        type: "string"
-        enum:
-          - created
-          - opened
-          - saved
-          - submitted
-          - reported
-          - expired
-      measure:
-        $ref: "#/definitions/Measure"
-
   CollectionScore:
     description: "Collection Score"
     type: "object"
