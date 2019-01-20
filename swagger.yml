@@ -94,7 +94,7 @@ info:
     <a href="#operation/Collection::create">POST /collection</a> call to
     inform the Registration System that the measure has been complete.
 
-    The Registration System can then use the <a href="#operation/Collection::result">GET /collection/{uuid}/result</a>
+    The Registration System can then use the <a href="#operation/Collection::result">GET /collection/{uuid}</a>
     endpoint to obtain the results of the collection.
 
     ## Sending Results to Provider Organisations and Practitioners
@@ -284,10 +284,10 @@ paths:
             $message .= ": $_";
           };
 
-  /collection/{uuid}/result:
+  /collection/{uuid}:
     get:
-      summary: "collection/{uuid}/result"
-      description: "Use /collection/{uuid}/result to retrieve a submitted collection."
+      summary: "collection/{uuid}"
+      description: "Use /collection/{uuid} to retrieve a submitted collection."
       tags:
       - "Results"
       security:
@@ -507,13 +507,13 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -H "auth-id your-auth-id" -H "auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/result"
+          curl -H "auth-id your-auth-id" -H "auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
       - lang: perl
         source: |-
           my ($response, $decoded);
           try {
             $response = Furl->new()->get(
-              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/result",
+              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
@@ -530,6 +530,63 @@ paths:
           catch {
             $message .= ": $_";
           };
+
+    delete:
+      summary: "collection/{uuid}"
+      description: "Use collection/{uuid} to immediately expire a collection"
+      tags:
+      - "Expire"
+      security:
+      - application_id: []
+        secret: []
+      operationId: "Collection::expire"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "uuid"
+        description: "UUID of collection to retrieve"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Collection expired"
+        400:
+          description: "Validation exception"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Collection not found"
+          schema:
+            $ref: "#/definitions/Error"
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl -X DELETE -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
+      - lang: perl
+        source: |-
+          my ($response, $decoded);
+          try {
+            $response = Furl->new()->delete(
+              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
+              [
+                'auth-id'      => $omsss_auth_id,
+                'auth-secret'  => $omsss_secret,
+              ],
+              () )
+            );
+            if ( $response->is_success ) {
+              $decoded = length $response->content
+                       ? Cpanel::JSON::XS::decode_json($response->content)
+                       : '';
+            }
+          }
+          catch {
+            $message .= ": $_";
+          };
+
 
   /collection/{uuid}/notify:
     post:
@@ -592,63 +649,6 @@ paths:
                 'Content-Type' => 'application/json',
               ],
               ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
-            );
-            if ( $response->is_success ) {
-              $decoded = length $response->content
-                       ? Cpanel::JSON::XS::decode_json($response->content)
-                       : '';
-            }
-          }
-          catch {
-            $message .= ": $_";
-          };
-
-  /collection/{uuid}:
-    delete:
-      summary: "collection/{uuid}"
-      description: "Use collection/{uuid} to immediately expire a collection"
-      tags:
-      - "Expire"
-      security:
-      - application_id: []
-        secret: []
-      operationId: "Collection::expire"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "path"
-        name: "uuid"
-        description: "UUID of collection to retrieve"
-        required: true
-        type: "string"
-      responses:
-        204:
-          description: "Collection expired"
-        400:
-          description: "Validation exception"
-          schema:
-            $ref: "#/definitions/Error"
-        404:
-          description: "Collection not found"
-          schema:
-            $ref: "#/definitions/Error"
-      x-code-samples:
-      - lang: curl
-        source: |-
-          curl -X DELETE -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
-      - lang: perl
-        source: |-
-          my ($response, $decoded);
-          try {
-            $response = Furl->new()->delete(
-              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
-              [
-                'auth-id'      => $omsss_auth_id,
-                'auth-secret'  => $omsss_secret,
-              ],
-              () )
             );
             if ( $response->is_success ) {
               $decoded = length $response->content
@@ -855,7 +855,7 @@ definitions:
         example: 22
 
   CompleteCollection:
-    description: "Response payload for GET /collection/{uuid}/result"
+    description: "Response payload for GET /collection/{uuid}"
     type: "object"
     properties:
       shortcode:
