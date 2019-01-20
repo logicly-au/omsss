@@ -35,7 +35,7 @@ info:
 
     The Production instance provides access to your live data. The Developers instance runs the same version of OMSSS as the Production instance, but can be used to test your code without affecting your live data.
 
-    Your login will give you access to both instances.
+    You will require separate authentication credentials to access to either the production or the developers instances.
 
     # Authentication
 
