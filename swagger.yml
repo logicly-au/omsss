@@ -188,12 +188,13 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl "https://omsss.online/api/version"
+          curl "https://api.omsss.online/v1/version"
       - lang: perl
         source: |-
-          my $response = Furl->new()->get(
-            "https://omsss.online/api/version"
-          );
+          use HTTP::Tiny;
+          my $response = HTTP::Tiny->new->get(
+              'https://api.omsss.online/v1/version'
+          )->{content};
 
   /collection:
     post:
@@ -245,43 +246,45 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '{"measure":"k5","postback_url":"https://api.your.service/pingback","payload":""}' "https://omsss.online/api/collection?include_qr_code=1"
+          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '{"measure":"K5","postback_url":"https://api.your.service/pingback","payload":""}' "https://api.omsss.online/v1/collection?include_qr_code=1"
       - lang: perl
         source: |-
-          tie my %token, 'Hash::Ordered', (
-            client_id => 'unique_client_id',
-          );
-          my $payload = Crypt::JWT::encode_jwt(
-            payload => \%token,
+          use Cpanel::JSON::XS;
+          use Crypt::JWT qw(encode_jwt);
+          use HTTP::Tiny;
+          use Try::Tiny;
+          # JWT payload to return in postback
+          my $payload = encode_jwt(
+            payload => { client_id => 'unique_client_id' },
             key     => 'sample_key',
             alg     => 'HS256'
           );
-          my $body = +{
-            measure      => 'k5',
-            postback_url => 'postback_uri',
+          # Create new collection
+          my $body = encode_json({
+            measure      => 'K5',
+            postback_url => 'https://api.your.service/pingback',
             payload      => $payload,
             sms          => '0419 123 456'',
-            email        => 'example@example.com',
-          };
+            email        => 'client@mail.example.com',
+          });
           my ($response, $decoded);
           try {
-            $response = Furl->new()->post(
-              "https://omsss.online/api/collection",
+            $response = HTTP::Tiny->new->post(
+              "https:/api.omsss.online/v1/collection",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
                 'Content-Type' => 'application/json',
               ],
-              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+              $body
             );
-            if ( $response->is_success ) {
-              $decoded = length $response->content
-                       ? Cpanel::JSON::XS::decode_json($response->content)
-                       : '';
+            if ( $response->{success} ) {
+              $decoded = decode_json($response->{content});
             }
           }
           catch {
-            $message .= ": $_";
+            # handle errors
+            die "Request to create collection failed: $_";
           };
 
   /collection/{uuid}:
@@ -507,13 +510,16 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -H "auth-id your-auth-id" -H "auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
+          curl -H "auth-id your-auth-id" -H "auth-secret" "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
       - lang: perl
         source: |-
+          use Cpanel::JSON::XS qw(decode_json);
+          use HTTP::Tiny;
+          use Try::Tiny;
           my ($response, $decoded);
           try {
-            $response = Furl->new()->get(
-              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
+            $response = HTTP::Tiny->new->get(
+              "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
@@ -521,14 +527,13 @@ paths:
               ],
               () )
             );
-            if ( $response->is_success ) {
-              $decoded = length $response->content
-                       ? Cpanel::JSON::XS::decode_json($response->content)
-                       : '';
+            if ( $response->{success} ) {
+              $decoded = decode_json($response->{content})
             }
           }
           catch {
-            $message .= ": $_";
+            # handle errors
+            die "Requesting collection results failed: $_";
           };
 
     delete:
@@ -564,27 +569,31 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -X DELETE -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
+          curl -X DELETE -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5"
       - lang: perl
         source: |-
+          use Cpanel::JSON::XS qw(decode_json);
+          use HTTP::Tiny;
+          use Try::Tiny;
           my ($response, $decoded);
           try {
-            $response = Furl->new()->delete(
-              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
+            $response = HTTP::Tiny->new->delete(
+              "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
               ],
               () )
             );
-            if ( $response->is_success ) {
-              $decoded = length $response->content
-                       ? Cpanel::JSON::XS::decode_json($response->content)
+            if ( $response->{success} ) {
+              $decoded = length $response->{content}
+                       ? decode_json($response->{content})
                        : '';
             }
           }
           catch {
-            $message .= ": $_";
+            # handle errors
+            die "Request to delete collection failed: $_";
           };
 
 
@@ -632,32 +641,38 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '["practitioner1@example.com","practitioner2@example.com"]' "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify"
+          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '{"email":["practitioner1@example.com","practitioner2@example.com"]}' "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify"
       - lang: perl
         source: |-
-          my $body = +[
-            'practitioner1@example.com',
-            'practitioner2@example.com'
-          ];
+          use Cpanel::JSON::XS;
+          use HTTP::Tiny;
+          use Try::Tiny;
+          my $body = encode_json({
+            email => [
+              'practitioner1@mail.example.com',
+              'practitioner2@mail.example.com'
+            ]
+          });
           my ($response, $decoded);
           try {
-            $response = Furl->new()->post(
-              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify",
+            $response = HTTP::Tiny->new->post(
+              "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/notify",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
                 'Content-Type' => 'application/json',
               ],
-              ( defined $body ? Cpanel::JSON::XS::encode_json($body) : () )
+              $body
             );
-            if ( $response->is_success ) {
-              $decoded = length $response->content
-                       ? Cpanel::JSON::XS::decode_json($response->content)
+            if ( $response->{success} ) {
+              $decoded = length $response->{content}
+                       ? decode_json($response->{content})
                        : '';
             }
           }
           catch {
-            $message .= ": $_";
+            # handle errors
+            die "Failed to notify collection results: $_";
           };
 
   /collection/{uuid}/qr:
@@ -690,28 +705,30 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/qr"
+          curl -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/qr"
       - lang: perl
         source: |-
+          use HTTP::Tiny;
+          use Path::Tiny;
+          use Try::Tiny;
           my ($response, $decoded);
           try {
-            $response = Furl->new()->get(
-              "https://omsss.online/api/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/qr",
+            $response = HTTP::Tiny->new->get(
+              "https://api.omsss.online/v1/collection/fa9bf0fc-d055-4f75-b74f-30ae490609f5/qr",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
               ],
               () )
             );
-            if ( $response->is_success ) {
-            #  $decoded = length $response->content
-            #           ? Cpanel::JSON::XS::decode_json($response->content)
-            #           : '';
-            # NEED TO RETURN PNG NOT JSON
+            if ( $response->{success} ) {
+               # do something with png image returned
+               path('qr.png')->spew_raw($response->{content});
             }
           }
           catch {
-            $message .= ": $_";
+            # handle errors
+            die "Failed to notify collection results: $_";
           };
 
 #----------------------------------------------------------------------
