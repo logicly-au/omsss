@@ -270,7 +270,7 @@ paths:
           my ($response, $decoded);
           try {
             $response = HTTP::Tiny->new->post(
-              "https:/api.omsss.online/v1/collection",
+              "https://api.omsss.online/v1/collection",
               [
                 'auth-id'      => $omsss_auth_id,
                 'auth-secret'  => $omsss_secret,
