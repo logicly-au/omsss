@@ -789,7 +789,7 @@ definitions:
       shortcode:
         type: "string"
         description: "Short code for accessing collection"
-      link:
+      url:
         type: "string"
         description: "URI for client to access collection"
       qr_code_url:
