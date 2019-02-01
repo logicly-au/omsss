@@ -48,12 +48,13 @@ info:
 
     # Definitions
 
-    | Term                | Meaning                                                                                  |
-    |---------------------|------------------------------------------------------------------------------------------|
-    | Client              | The person who is receiving the psychological service.                                   |
-    | Measure             | A diagnostic tool used in healthcare. In the case of OMSSS these are all questionnaires. |
-    | Collection          | An instance of a **measure** assigned to a particular **client**.                        |
-    | Registration System | A third party system (including the PMHC MDS) that has an API connection to OMSSS.       |
+    | Term                   | Meaning                                                                                     |
+    |------------------------|---------------------------------------------------------------------------------------------|
+    | Client or Human Client | The person who is receiving the psychological service.                                      |
+    | Collection             | An instance of a **measure** assigned to a particular **client**.                           |
+    | Human User             | The admin person or provider at the Provider Organistaion who might be generating the link. |
+    | Measure                | A diagnostic tool used in healthcare. In the case of OMSSS these are all questionnaires.    |
+    | Registration System    | A third party system (including the PMHC MDS) that has an API connection to OMSSS.          |
 
     # Process
 
@@ -235,6 +236,7 @@ paths:
               shortcode: RMA1A60
               url: https://omsss.online/#/RMA1A60
               qr_code_url: https://omsss.online/api/collection/RMA1A60/qr
+              qr_code_image: data:data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHsAAAB7EAYAAAAEVyM8AAAEH0lEQVR4nO3dwY7jRgwFwCjI///y7CXXxoLZJsh+qToPJI1tgk80bX8///oLiPH39AUA9ylsCKSwIZDChkAKGwIpbAiksCGQwoZAChsCKWwIpLAh0D/dJ/i+7/u+7rP8udPG/On6qxv2245TPf6UW4/PNt2f0NCxIZDChkDtUfxk6sOit6Ja9TjdUb9b9y1Dd4R+/fVWpWNDIIUNgcai+Mmt6HIrenVPZbuj6dQ0vntKv+1dgG23Tjo2BFLYEGhdFN9mavo9tbgyFSm3RdnX6dgQSGFDIFH8N16ZWm9bgHllNz6Vjg2BFDYEWhfFX4lY2yL6th346vFN4+/SsSGQwoZAY1H8lW+62Da1noro266n6pXX2y06NgRS2BDo+/lJnQvese2bPV65Hq+qWTo2BFLYEGjse8VvTU2npsEn3dF023S6+3msmtpRn/p/T3RsCKSwIdDYVHxbdNkWHatev55tH/PsviUUxYEyhQ2Bnp+Kb4uOt45/6zivPD5V214n23bRdWwIpLAh0DO74rci/dR/23092/7fqu5bm6nXj6k4cI3ChkDtUXxqh7nbtkhfte0WYOpWpeqVWxsdGwIpbAj0zFS86pUp6OvT/pNtEf3/9q6Ejg2BFDYEWvcTPye3FhhuTUe37SpXvfLuQ1X383t6/LfdCunYEEhhQ6Cxj22eVCNN999PLdh0R/db13/rOLf+fup5EcWBdgobAq2bir8SZV9ZLLl13qnIXT3v1ILQNjo2BFLYEKg9im9bqLg1FZ/SfT23nq/Ux3nbjvqJjg2BFDYEWve94idTU9nq9VRNRettixbbptDdCzzddGwIpLAh0PNT8akFj6rUHfVt0+/ux2fbLcOJjg2BFDYEGvte8W26I+W2W4ZtU/1t0/vunXYLKkCZwoZA6z62eTIVvU7nnYqyr5+3O7JuW4iaomNDIIUNgdYtqJyizlQEen23fNsCSdXUdLp63m2Pm44NgRQ2BBqbik+9cT9lW1Q7mVq06I7E3ddZvZ5uOjYEUtgQaGxXfGp6WTUVTbsXNk627WBvs20n/ETHhkAKGwK1R/HXTUX9qm23Btt2v6vHP3mlWnRsCKSwIdC6H76fMrXAcNK9I73Nreu8Fd233TJU6dgQSGFDoLFd8amIcivybZuOblvUOeleQJpasNn2etCxIZDChkDrvsxwW1Tunja/cp3bdv5fn/Z3R3cdGwIpbAi0LopvMxVBt90CnM6buhDyyvT7RMeGQAobAoni/1F3JN42Ja5e59Su+63zbvvsQJWODYEUNgRaF8W3TR1fj8rd19M9he6+ntTpuo4NgRQ2BFr3Ez/bdC+cpHplcWXb8W/RsSGQwoZAvlccAunYEEhhQyCFDYEUNgRS2BBIYUMghQ2BFDYEUtgQSGFDIIUNgX4BMqWdOBbWTt0AAAAASUVORK5CYII=
         400:
           description: Invalid input
           schema:
@@ -246,7 +248,7 @@ paths:
       x-code-samples:
       - lang: curl
         source: |-
-          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '{"measure":"K5","postback_url":"https://api.your.service/pingback","payload":""}' "https://api.omsss.online/v1/collection?include_qr_code=1"
+          curl -X POST -H "Content-Type: application/json" -H "auth-id: your-auth-id" -H "auth-secret: your-auth-secret" -d '{"measure":"K5","postback_url":"https://api.your.service/pingback","payload":""}' "https://api.omsss.online/v1/collection?include_qrcode_image=1"
       - lang: perl
         source: |-
           use Cpanel::JSON::XS;
@@ -797,7 +799,7 @@ definitions:
         description: "URI for QR code to access collection"
       qr_code_image:
         type: "string"
-        description: "URI for QR code to access collection"
+        description: "data: URL for QR code to access collection"
     required:
     - uuid
     - shortcode
