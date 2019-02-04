@@ -699,7 +699,8 @@ paths:
         200:
           description: OK
           schema:
-            type: file
+            type: string
+            format: binary
         404:
           description: "Collection not found"
           schema:
