@@ -222,7 +222,7 @@ paths:
   /health-check:
     get:
       tags:
-      - "operations"
+      - "Misc"
       summary: "health-check"
       description: "Health check verifies all aspects of the application are performing at expected levels"
       operationId: "Root::health_check"
@@ -958,7 +958,6 @@ definitions:
         type: "string"
         example: "2018-04-01T12:34:55Z"
         description: "Date/time in ISO-8601 format that the client submitted the collection"
-
 
   MeasureType:
     description: |
