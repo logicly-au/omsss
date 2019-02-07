@@ -9,7 +9,7 @@ info:
     email: support@omsss.online
   x-logo:
     url: https://staging.omsss.online/assets/logo.png
-    backgroundColor: #FFFFFF
+    backgroundColor: '#FFFFFF'
     altText: OMSSS Logo
   description: |
     # Introduction
@@ -176,16 +176,13 @@ paths:
           description: "Successful operation"
           examples:
             application/json:
-            - git:
+              git:
                 tag: v0.1.1
                 sha: c80bb751479f8cab2fa2e6e6168f7ada90b73e92
                 date: Fri Nov 9 16:20:58 2018
               built: Fri  9 Nov 2018 16:24:07 AEDT
           schema:
-            description: ''
-            type: array
-            items:
-              $ref: '#/definitions/VersionResponse'
+            $ref: "#/definitions/VersionResponse"
       x-code-samples:
       - lang: curl
         source: |-
@@ -370,7 +367,7 @@ paths:
               - question: In the last four weeks, about how often did you feel restless or jumpy?
                 options:
                 - scores:
-                  total: 1
+                    total: 1
                   value: '1'
                   text: None of the time
                 - scores:
@@ -492,7 +489,7 @@ paths:
                   scores:
                     total: 5
                   response: '5'
-              measure_type: k5
+              measure_type: K5
               shortcode: RMA1A60
               scores:
                 total: 15
@@ -892,11 +889,16 @@ definitions:
           $ref: "#/definitions/Question"
       answers:
         type: "object"
+        x-allow-extra-fields: true
+        default: { }
         example: '{ "12": { "response": "orange" }, "14" : { "response": "7" } }'
       scores:
-        type: "array"
-        items:
-          $ref: "#/definitions/CollectionScore"
+        description: "Collection Score"
+        type: "object"
+        x-allow-extra-fields: true
+        default: { }
+      report:
+        type: "string"
       first_opened_utc:
         type: "string"
         example: "2018-04-01T12:34:55Z"
