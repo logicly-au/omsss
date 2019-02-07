@@ -193,6 +193,57 @@ paths:
           my $response = HTTP::Tiny->new->get(
               'https://api.omsss.online/v1/version'
           )->{content};
+  /ping:
+    get:
+      tags:
+      - "Misc"
+      summary: "ping"
+      description: "The application will respond with a success message indicating it is running."
+      operationId: "Root::ping"
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "Successful operation"
+          examples:
+            text/plain:
+              Ok
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl "https://api.omsss.online/v1/ping"
+      - lang: perl
+        source: |-
+          use HTTP::Tiny;
+          my $response = HTTP::Tiny->new->get(
+              'https://api.omsss.online/v1/ping'
+          )->{content};
+
+  /health-check:
+    get:
+      tags:
+      - "operations"
+      summary: "health-check"
+      description: "Health check verifies all aspects of the application are performing at expected levels"
+      operationId: "Root::health_check"
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "Successful operation"
+          examples:
+            text/plain:
+              Ok
+      x-code-samples:
+      - lang: curl
+        source: |-
+          curl "https://api.omsss.online/v1/health-check"
+      - lang: perl
+        source: |-
+          use HTTP::Tiny;
+          my $response = HTTP::Tiny->new->get(
+              'https://api.omsss.online/v1/health-check'
+          )->{content};
 
   /collection:
     post:
